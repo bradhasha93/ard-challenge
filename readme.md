@@ -7,3 +7,5 @@
 - Retrieving long URL from short URL
 - Tracked statistics on number of times a short URL has been "clicked" i.e. number of times long URL has been retrieved
 - Entering custom short URL or letting application randomly generate one while maintaining uniqueness
+
+### Setup Instructions
