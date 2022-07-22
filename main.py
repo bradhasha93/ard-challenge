@@ -1,6 +1,6 @@
 import prompt
 
-from src.link_manager import LinkManager
+from link_manager import LinkManager
 
 if __name__ == "__main__":
     # Create a new LinkManager object

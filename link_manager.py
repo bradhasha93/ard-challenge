@@ -95,6 +95,7 @@ class LinkManager:
         :param short_url:
         """
         if self.__does_short_url_exist(short_url=short_url):
+            print(f"Deleted short_url '{short_url}'")
             del self.__links[short_url]
 
     def retrieve_long_url(self, short_url):
@@ -105,7 +106,7 @@ class LinkManager:
         if self.__does_short_url_exist(short_url=short_url):
             self.__increment_clicked_count(short_url=short_url)
             print(f"Retrieved long_url '{self.__get_long_url(short_url=short_url)}' "
-                  f"{self.__get_clicked_count(short_url=short_url)} time(s) using short_url: `{short_url}'")
+                  f"{self.__get_clicked_count(short_url=short_url)} time(s) using short_url: '{short_url}'")
 
     def retrieve_short_url_stats(self, short_url):
         """
