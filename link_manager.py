@@ -4,11 +4,7 @@ import prompt
 
 
 class LinkManager:
-    URL_REGEX = r"(\w+://)?"  # protocol (optional)
-    r"(\w+\.)?"  # host (optional)
-    r"((\w+)\.(\w+))"  # domain
-    r"(\.\w+)*"  # top-level domain (optional, can have > 1)
-    r"([\w\-\._\~/]*)*(?<!\.)"  # path, params, anchors, etc. (optional))
+    URL_REGEX = r"(\w+://)?(\w+\.)?((\w+)\.(\w+))(\.\w+)*([\w\-\._\~/]*)*(?<!\.)"
 
     def __init__(self):
         self.__links = {}
@@ -51,7 +47,7 @@ class LinkManager:
         """
         return self.__links.get(short_url).get("clicked")
 
-    def __prompt_url(self, main_prompt, additional_prompt):
+    def __prompt_url(self, main_prompt, additional_prompt, allow_empty=False):
         """
         Create a prompt to user on command line to ask for URL
         :param main_prompt:
@@ -59,7 +55,7 @@ class LinkManager:
         :return: result=user value entered
         """
         return prompt.regex(self.URL_REGEX, main_prompt + (additional_prompt if
-                                                           additional_prompt is not None else "") + ": ")
+                                                           additional_prompt is not None else "") + ": ", empty=allow_empty)
 
     def add_link(self, short_url, long_url):
         """
@@ -76,15 +72,11 @@ class LinkManager:
 
         # Add short_url if it is not already in the map, otherwise print error for user
         if self.__links.get(short_url) is None:
-
-            if long_url == "":
-                print(f"Failed to add short_url: '{short_url}' because long_url cannot be empty.")
-            else:
-                self.__links[short_url] = {
-                    "long_url": long_url,
-                    "clicked": 0
-                }
-                print(f"Added short_url: '{short_url}' mapped to long_url: '{long_url}'")
+            self.__links[short_url] = {
+                "long_url": long_url,
+                "clicked": 0
+            }
+            print(f"Added short_url: '{short_url}' mapped to long_url: '{long_url}'")
         else:
             print(f"'{short_url}' is already in use.  "
                   f"You must remove it before it can be re-used.")
@@ -130,18 +122,21 @@ class LinkManager:
         else:
             print(f"There are no stats to retrieve.")
 
-    def prompt_short_url(self, additional_prompt=None):
+    def prompt_short_url(self, additional_prompt=None, allow_empty=False):
         """
         Prompt user for short_url
+        :param allow_empty:
         :param additional_prompt:
         :return: result=user value entered
         """
-        return self.__prompt_url("Enter short url", additional_prompt)
+        return self.__prompt_url("Enter short url", additional_prompt=additional_prompt, allow_empty=allow_empty)
 
-    def prompt_long_url(self, additional_prompt=None):
+    def prompt_long_url(self, additional_prompt=None, allow_empty=False):
         """
         Prompt user for long_url
+        :param allow_empty:
         :param additional_prompt:
         :return: result=user value entered
         """
-        return self.__prompt_url("Enter long url", additional_prompt)
+        return self.__prompt_url("Enter long url", additional_prompt=additional_prompt
+                                 , allow_empty=allow_empty)

@@ -26,9 +26,10 @@ if __name__ == "__main__":
             quit(0)
 
         elif option.string == "1":
-            short_url = lm.prompt_short_url()
+            short_url = lm.prompt_short_url(allow_empty=True)
             long_url = lm.prompt_long_url()
-            lm.add_link(short_url=short_url.string, long_url=long_url.string)
+            lm.add_link(short_url=short_url.string if short_url is not None else None,
+                        long_url=long_url.string)
 
         elif option.string == "2":
             short_url = lm.prompt_short_url(additional_prompt=" to delete")

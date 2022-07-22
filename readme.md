@@ -9,3 +9,7 @@
 - Entering custom short URL or letting application randomly generate one while maintaining uniqueness
 
 ### Setup Instructions
+- Create a new python virtual environment in the unzipped directory containing the files, i.e. on Windows `py -m venv venv` 
+- Activate the virtual env by running `activate` from the `venv` bin or Scripts directory
+- Install requirements.txt in the activated virtualenv using `pip install -r requirements.txt`
+- Run the application `python main.py`
