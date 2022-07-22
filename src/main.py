@@ -3,8 +3,10 @@ import prompt
 from src.link_manager import LinkManager
 
 if __name__ == "__main__":
+    # Create a new LinkManager object
     lm = LinkManager()
 
+    # Provide user instructions
     print("#### Link Manager Instructions ####")
     print("# Options")
     print("# 0=Exit")
@@ -15,6 +17,7 @@ if __name__ == "__main__":
     print("# 5=Retrieve all stats")
     print("")
 
+    # Loop application until user chooses to exit
     while True:
         option = prompt.regex("[0-5]", "Select an option: ")
 
